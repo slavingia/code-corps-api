@@ -20,7 +20,7 @@ defmodule CodeCorps.StripeAccountControllerTest do
     # @tag :authenticated
     # test "renders 403 when not authorized", %{conn: conn} do
     #   assert conn |> request_index |> json_response(403)
-    # 
+    #
     # end
   end
 
