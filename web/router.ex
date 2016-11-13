@@ -88,8 +88,5 @@ defmodule CodeCorps.Router do
     resources "/user-categories", UserCategoryController, only: [:index, :show]
     resources "/user-roles", UserRoleController, only: [:index, :show]
     resources "/user-skills", UserSkillController, only: [:index, :show]
-    get "/:slug", SluggedRouteController, :show
-    get "/:slug/projects", ProjectController, :index
-    get "/:slug/:project_slug", ProjectController, :show
   end
 end
