@@ -1,29 +1,53 @@
-defmodule CodeCorps.StripeAccountPolicyTest do
- use CodeCorps.PolicyCase
+defmodule CodeCorps.StripeCardTest do
+  use CodeCorps.PolicyCase
 
- import CodeCorps.StripeCard
- import CodeCorps.StripeCardPolicy, only: [index?: 2, show?: 2]
+  import CodeCorps.StripeCardPolicy, only: [create?: 2, delete?: 2, show?: 2]
 
- alias CodeCorps.StripeCard
+  describe "create?" do
+    test "returns true if user is creating their own record" do
+      user = insert(:user)
+      stripe_card = insert(:stripe_card, user: user)
 
-  describe "index?" do
-   test "returns true when user is the current user" do
-     #test
-   end
+      assert create?(user, stripe_card)
+    end
 
-   test "returns false when user is not the current user" do
-     #test
-   end
+    test "returns false if user is creating someone else's record" do
+      user = insert(:user)
+      stripe_card = insert(:stripe_card)
+
+      refute create?(user, stripe_card)
+    end
+  end
+
+  describe "delete?" do
+    test "returns true if user is creating their own record" do
+      user = insert(:user)
+      stripe_card = insert(:stripe_card, user: user)
+
+      assert delete?(user, stripe_card)
+    end
+
+    test "returns false if user is creating someone else's record" do
+      user = insert(:user)
+      stripe_card = insert(:stripe_card)
+
+      refute delete?(user, stripe_card)
+    end
   end
 
   describe "show?" do
-   test "returns true when user is the current user" do
-     #test
-   end
+    test "returns true if user is creating their own record" do
+      user = insert(:user)
+      stripe_card = insert(:stripe_card, user: user)
 
-   test "returns false when user is not the current user" do
-     #test
-   end
+      assert show?(user, stripe_card)
+    end
+
+    test "returns false if user is creating someone else's record" do
+      user = insert(:user)
+      stripe_card = insert(:stripe_card)
+
+      refute show?(user, stripe_card)
+    end
   end
-
 end
