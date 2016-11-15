@@ -1,6 +1,7 @@
 defmodule CodeCorps.StripeAccountControllerTest do
   use CodeCorps.ApiCase, resource_name: :stripe_account
 
+  @tag :authenticated
   describe "show" do
     test "shows chosen resource", %{conn: conn} do
       stripe_account = insert(:stripe_account)
@@ -11,6 +12,5 @@ defmodule CodeCorps.StripeAccountControllerTest do
       |> Map.get("data")
       |> assert_result_id(stripe_account.id)
     end
-
   end
 end
