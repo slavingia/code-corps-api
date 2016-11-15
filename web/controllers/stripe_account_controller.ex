@@ -4,7 +4,7 @@ defmodule CodeCorps.StripeAccountController do
 
   alias CodeCorps.StripeAccount
 
-  # plug :load_and_authorize_resource, model: StripeAccount, only: [:index, :show]
+  # plug :load_and_authorize_resource, model: StripeAccount, only: [:show]
   plug JaResource
 
 
