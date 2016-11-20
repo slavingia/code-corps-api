@@ -84,7 +84,7 @@ defmodule CodeCorps.Mixfile do
       {:scrivener_ecto, "~> 1.0"}, # DB query pagination
       {:segment, github: "stueccles/analytics-elixir"}, # Segment analytics
       {:sentry, "~> 1.0"}, # Sentry error tracking
-      {:stripity_stripe, "~> 1.3.0"} # Stripe
+      {:stripity_stripe, "~> 2.0.0-alpha.2"} # Stripe
     ]
   end
 
