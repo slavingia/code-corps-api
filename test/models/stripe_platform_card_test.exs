@@ -4,7 +4,15 @@ defmodule CodeCorps.StripePlatformCardTest do
   alias CodeCorps.StripePlatformCard
 
   @valid_attrs %{
-    id_from_stripe: "abc123"
+    brand: "Visa",
+    customer_id_from_stripe: "cust_123",
+    cvc_check: "unchecked",
+    exp_month: 12,
+    exp_year: 2020,
+    last4: "4242",
+    name: "John Doe",
+    id_from_stripe: "card_1234",
+    user_id: 1
   }
 
   @invalid_attrs %{}

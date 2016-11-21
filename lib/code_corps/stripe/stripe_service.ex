@@ -6,8 +6,6 @@ defmodule CodeCorps.StripeService do
   end
 
   def create_platform_card(%{"stripe_token" => stripe_token, "user_id" => user_id} = attributes) do
-    IO.puts("creating platform card \n")
-
     user_id
     |> get_customer
     |> create_platform_card_on_stripe(stripe_token)
@@ -15,8 +13,6 @@ defmodule CodeCorps.StripeService do
   end
 
   defp handle_response({:ok, %Stripe.Card{} = card}, attributes) do
-    IO.puts("stripe responded ok \n")
-
     card
     |> get_attributes_for_insert(attributes)
     |> insert_into_db
@@ -38,10 +34,6 @@ defmodule CodeCorps.StripeService do
   end
 
   defp insert_into_db(%{} = attributes) do
-    count_rec = CodeCorps.StripePlatformCard |> CodeCorps.Repo.aggregate(:count, :id)
-    IO.puts("currently #{count_rec} cards in the db\n")
-    IO.puts("inserting \n")
-
     %CodeCorps.StripePlatformCard{}
     |> CodeCorps.StripePlatformCard.create_changeset(attributes)
     |> CodeCorps.Repo.insert

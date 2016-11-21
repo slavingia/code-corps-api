@@ -1,4 +1,4 @@
-defmodule CodeCorps.StripePlatformCardTest do
+defmodule CodeCorps.StripePlatformCardPolicyTest do
   use CodeCorps.PolicyCase
 
   import CodeCorps.StripePlatformCardPolicy, only: [create?: 2, delete?: 2, show?: 2]

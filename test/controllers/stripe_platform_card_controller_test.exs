@@ -30,26 +30,42 @@ defmodule CodeCorps.StripePlatformCardControllerTest do
     end
   end
 
+  defp build_payload(%{stripe_token: stripe_token, user: user}) do
+    %{
+      "data" => %{
+        "type" => "stripe-platform-card",
+        "attributes" => stripe_token |> to_attributes,
+        "relationships" => user |> to_relationships
+      },
+    }
+  end
+  defp build_payload(%{}), do: %{"data" => %{"type" => "stripe-platform-card"}}
+
+  defp to_attributes(stripe_token), do: %{"stripe-token" => stripe_token}
+  defp to_relationships(user), do: %{"user" => %{"data" => %{"id" => user.id, "type" => "user"}}}
+
+  defp make_create_request(conn, attrs \\ %{}) do
+    path = conn |> stripe_platform_card_path(:create)
+
+    payload = build_payload(attrs)
+    conn |> post(path, payload)
+  end
+
   describe "create" do
     @tag :authenticated
     test "creates and renders resource when data is valid", %{conn: conn, current_user: current_user} do
+      insert(:stripe_platform_customer, user: current_user)
       valid_attrs = %{stripe_token: "tok_test123456", user: current_user}
-      assert conn |> request_create(valid_attrs) |> json_response(201)
-    end
-
-    @tag :authenticated
-    test "renders 422 when data is invalid", %{conn: conn, current_user: current_user} do
-      invalid_attrs = %{stripe_token: nil, user: current_user}
-      assert conn |> request_create(invalid_attrs) |> json_response(422)
+      assert conn |> make_create_request(valid_attrs) |> json_response(201)
     end
 
     test "renders 401 when unauthenticated", %{conn: conn} do
-      assert conn |> request_create |> json_response(401)
+      assert conn |> make_create_request |> json_response(401)
     end
 
     @tag :authenticated
     test "renders 403 when not authorized", %{conn: conn} do
-      assert conn |> request_create |>  json_response(403)
+      assert conn |> make_create_request |>  json_response(403)
     end
   end
 

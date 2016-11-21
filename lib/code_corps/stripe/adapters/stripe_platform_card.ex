@@ -1,10 +1,10 @@
 defmodule CodeCorps.Stripe.Adapters.StripePlatformCard do
   import CodeCorps.MapUtils, only: [rename: 3, keys_to_string: 1]
 
-  @stripe_attributes [:brand, :customer_id_from_stripe, :cvc_check, :exp_month, :exp_year, :id, :last4, :name, :id_from_stripe, :user_id]
+  @stripe_attributes [:brand, :customer, :cvc_check, :exp_month, :exp_year, :id, :last4, :name, :user_id]
 
-  def to_params(%{} = stripe_map) do
-    stripe_map
+  def to_params(%Stripe.Card{} = stripe_card) do
+    stripe_card
     |> Map.from_struct
     |> Map.take(@stripe_attributes)
     |> rename(:id, :id_from_stripe)
