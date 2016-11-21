@@ -11,6 +11,8 @@ defmodule CodeCorps.StripePlatformCard do
     field :last4, :string
     field :name, :string
 
+    field :stripe_token, :string, virtual: true
+
     belongs_to :user, CodeCorps.User
 
     timestamps()
@@ -21,5 +23,6 @@ defmodule CodeCorps.StripePlatformCard do
     |> cast(params, [:brand, :customer_id_from_stripe, :cvc_check, :exp_month, :exp_year, :last4, :name, :id_from_stripe, :user_id])
     |> validate_required([:brand, :exp_month, :exp_year, :cvc_check, :last4, :id_from_stripe, :user_id])
     |> assoc_constraint(:user)
+    |> unique_constraint(:id_from_stripe)
   end
 end

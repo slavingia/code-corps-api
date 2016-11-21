@@ -22,7 +22,7 @@ defmodule CodeCorps.StripePlatformCustomerController do
     |> create_record
   end
 
-  defp handle_stripe_response({:error, %Stripe.APIError{}}, _, conn) do
+  defp handle_stripe_response({:error, %Stripe.APIError{} = error}, _, conn) do
     conn
     |> put_status(500)
     |> render(CodeCorps.ErrorView, "500.json-api")

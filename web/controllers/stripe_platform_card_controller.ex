@@ -16,11 +16,22 @@ defmodule CodeCorps.StripePlatformCardController do
   end
 
   def handle_create(conn, attributes) do
-    %StripePlatformCard{}
-    |> StripePlatformCard.create_changeset(attributes)
-    |> Repo.insert
-    |> CodeCorps.Analytics.Segment.track(:created, conn)
+    attributes
+    |> CodeCorps.StripeService.create_platform_card
+    |> handle_create_result(conn)
   end
+
+  defp handle_create_result({:ok, %StripePlatformCard{}} = result, conn) do
+    result |> CodeCorps.Analytics.Segment.track(:created, conn)
+  end
+
+  defp handle_create_result({:error, %Stripe.APIError{} = error}, conn) do
+    conn
+    |> put_status(500)
+    |> render(CodeCorps.ErrorView, "500.json-api")
+  end
+
+  defp handle_create_result({:error, %Ecto.Changeset{} = changeset}, _conn), do: changeset
 
   def handle_delete(conn, record) do
     record
