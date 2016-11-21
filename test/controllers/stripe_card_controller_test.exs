@@ -1,27 +1,27 @@
-defmodule CodeCorps.StripeCardControllerTest do
-  use CodeCorps.ApiCase, resource_name: :stripe_card
+defmodule CodeCorps.StripePlatformCardControllerTest do
+  use CodeCorps.ApiCase, resource_name: :stripe_platform_card
 
   describe "show" do
     @tag :authenticated
     test "shows resource when authenticated and authorized", %{conn: conn, current_user: current_user} do
-      stripe_card = insert(:stripe_card, user: current_user)
+      stripe_platform_card = insert(:stripe_platform_card, user: current_user)
       conn
-      |> request_show(stripe_card)
+      |> request_show(stripe_platform_card)
       |> json_response(200)
       |> Map.get("data")
-      |> assert_result_id(stripe_card.id)
+      |> assert_result_id(stripe_platform_card.id)
     end
 
     test "renders 401 when unauthenticated", %{conn: conn} do
-      stripe_card = insert(:stripe_card)
+      stripe_platform_card = insert(:stripe_platform_card)
 
-      assert conn |> request_show(stripe_card) |> json_response(401)
+      assert conn |> request_show(stripe_platform_card) |> json_response(401)
     end
 
     @tag :authenticated
     test "renders 403 when not authorized", %{conn: conn} do
-      stripe_card = insert(:stripe_card)
-      assert conn |> request_show(stripe_card) |> json_response(403)
+      stripe_platform_card = insert(:stripe_platform_card)
+      assert conn |> request_show(stripe_platform_card) |> json_response(403)
     end
 
     @tag :authenticated
@@ -56,8 +56,8 @@ defmodule CodeCorps.StripeCardControllerTest do
   describe "delete" do
     @tag :authenticated
     test "deletes resource", %{conn: conn, current_user: current_user} do
-      stripe_card = insert(:stripe_card, user: current_user)
-      assert conn |> request_delete(stripe_card) |> response(204)
+      stripe_platform_card = insert(:stripe_platform_card, user: current_user)
+      assert conn |> request_delete(stripe_platform_card) |> response(204)
     end
 
     test "renders 401 when unauthenticated", %{conn: conn} do

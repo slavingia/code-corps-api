@@ -1,5 +1,5 @@
-defmodule CodeCorps.StripeCardPolicy do
-  alias CodeCorps.StripeCard
+defmodule CodeCorps.StripePlatformCardPolicy do
+  alias CodeCorps.StripePlatformCard
   alias CodeCorps.User
   alias Ecto.Changeset
 
@@ -11,7 +11,7 @@ defmodule CodeCorps.StripeCardPolicy do
     current_user_id == user_id
   end
 
-  defp owns?(%User{id: current_user_id}, %StripeCard{user_id: user_id}) do
+  defp owns?(%User{id: current_user_id}, %StripePlatformCard{user_id: user_id}) do
     current_user_id == user_id
   end
 

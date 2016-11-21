@@ -1,7 +1,7 @@
-defmodule CodeCorps.StripeCard do
+defmodule CodeCorps.StripePlatformCard do
   use CodeCorps.Web, :model
 
-  schema "stripe_cards" do
+  schema "stripe_platform_cards" do
     field :brand, :string
     field :customer_id_from_stripe, :string
     field :cvc_check, :string

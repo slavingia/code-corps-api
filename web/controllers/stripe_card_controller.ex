@@ -1,13 +1,13 @@
-defmodule CodeCorps.StripeCardController do
+defmodule CodeCorps.StripePlatformCardController do
   use CodeCorps.Web, :controller
   use JaResource
 
   import CodeCorps.Helpers.Query, only: [id_filter: 2]
 
-  alias CodeCorps.StripeCard
+  alias CodeCorps.StripePlatformCard
 
-  plug :load_and_authorize_resource, model: StripeCard, only: [:show, :delete], preload: [:user]
-  plug :load_and_authorize_changeset, model: StripeCard, only: [:create]
+  plug :load_and_authorize_resource, model: StripePlatformCard, only: [:show, :delete], preload: [:user]
+  plug :load_and_authorize_changeset, model: StripePlatformCard, only: [:create]
 
   plug JaResource
 
@@ -16,8 +16,8 @@ defmodule CodeCorps.StripeCardController do
   end
 
   def handle_create(conn, attributes) do
-    %StripeCard{}
-    |> StripeCard.create_changeset(attributes)
+    %StripePlatformCard{}
+    |> StripePlatformCard.create_changeset(attributes)
     |> Repo.insert
     |> CodeCorps.Analytics.Segment.track(:created, conn)
   end

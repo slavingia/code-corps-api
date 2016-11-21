@@ -1,7 +1,7 @@
-defmodule CodeCorps.Stripe.Adapters.StripeCardTest do
+defmodule CodeCorps.Stripe.Adapters.StripePlatformCardTest do
   use ExUnit.Case, async: true
 
-  import CodeCorps.Stripe.Adapters.StripeCard, only: [params_from_stripe: 1]
+  import CodeCorps.Stripe.Adapters.StripePlatformCard, only: [params_from_stripe: 1]
 
   @stripe_map %{"id" => "str_123", "customer" => "cust_123", "foo" => "bar"}
   @local_map %{

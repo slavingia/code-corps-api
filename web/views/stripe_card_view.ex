@@ -1,4 +1,4 @@
-defmodule CodeCorps.StripeCardView do
+defmodule CodeCorps.StripePlatformCardView do
   use CodeCorps.PreloadHelpers, default_preloads: [:user]
   use CodeCorps.Web, :view
   use JaSerializer.PhoenixView

@@ -1,4 +1,4 @@
-defmodule CodeCorps.Stripe.Adapters.StripeCard do
+defmodule CodeCorps.Stripe.Adapters.StripePlatformCard do
   import CodeCorps.MapUtils, only: [rename: 3]
 
   def params_from_stripe(%{} = stripe_map) do

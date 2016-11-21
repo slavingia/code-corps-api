@@ -1,7 +1,7 @@
-defmodule CodeCorps.StripeCardTest do
+defmodule CodeCorps.StripePlatformCardTest do
   use CodeCorps.ModelCase
 
-  alias CodeCorps.StripeCard
+  alias CodeCorps.StripePlatformCard
 
   @valid_attrs %{
     id_from_stripe: "abc123"
@@ -14,12 +14,12 @@ defmodule CodeCorps.StripeCardTest do
       user_id = insert(:user).id
 
       changes = Map.merge(@valid_attrs, %{user_id: user_id})
-      changeset = StripeCard.create_changeset(%StripeCard{}, changes)
+      changeset = StripePlatformCard.create_changeset(%StripePlatformCard{}, changes)
       assert changeset.valid?
     end
 
     test "reports as invalid when attributes are invalid" do
-      changeset = StripeCard.create_changeset(%StripeCard{}, @invalid_attrs)
+      changeset = StripePlatformCard.create_changeset(%StripePlatformCard{}, @invalid_attrs)
       refute changeset.valid?
 
       assert changeset.errors[:id_from_stripe] == {"can't be blank", []}
@@ -30,7 +30,7 @@ defmodule CodeCorps.StripeCardTest do
       attrs =  @valid_attrs |> Map.merge(%{user_id: -1})
 
       { result, changeset } =
-        StripeCard.create_changeset(%StripeCard{}, attrs)
+        StripePlatformCard.create_changeset(%StripePlatformCard{}, attrs)
         |> Repo.insert
 
       assert result == :error

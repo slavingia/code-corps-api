@@ -17,7 +17,7 @@ defmodule CodeCorps.Repo.Migrations.AddStripeCustomersCardsTables do
     create unique_index(:stripe_customers, [:id_from_stripe])
     create unique_index(:stripe_customers, [:user_id])
 
-    create table(:stripe_cards) do
+    create table(:stripe_platform_cards) do
       add :brand, :string
       add :customer_id_from_stripe, :string
       add :cvc_check, :string
@@ -32,7 +32,7 @@ defmodule CodeCorps.Repo.Migrations.AddStripeCustomersCardsTables do
       timestamps()
     end
 
-    create index(:stripe_cards, [:user_id])
-    create unique_index(:stripe_cards, [:id_from_stripe])
+    create index(:stripe_platform_cards, [:user_id])
+    create unique_index(:stripe_platform_cards, [:id_from_stripe])
   end
 end
